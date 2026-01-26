@@ -1,7 +1,7 @@
 package com.practice.SecurityApp.SecurityApplication.service;
 
 
-import com.practice.SecurityApp.SecurityApplication.dto.PostDTO;
+import com.practice.SecurityApp.SecurityApplication.dto.PostDto;
 import com.practice.SecurityApp.SecurityApplication.entity.PostEntity;
 import com.practice.SecurityApp.SecurityApplication.entity.User;
 import com.practice.SecurityApp.SecurityApplication.exception.ResourceNotFoundException;
@@ -23,22 +23,22 @@ public class PostServiceImpl implements PostService{
     private final ModelMapper modelMapper;
 
     @Override
-    public List<PostDTO> getAllPosts() {
+    public List<PostDto> getAllPosts() {
         return postRepository
                 .findAll()
                 .stream()
-                .map(postEntity -> modelMapper.map(postEntity, PostDTO.class))
+                .map(postEntity -> modelMapper.map(postEntity, PostDto.class))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public PostDTO createNewPost(PostDTO inputPost) {
+    public PostDto createNewPost(PostDto inputPost) {
         PostEntity postEntity = modelMapper.map(inputPost, PostEntity.class);
-        return modelMapper.map(postRepository.save(postEntity), PostDTO.class);
+        return modelMapper.map(postRepository.save(postEntity), PostDto.class);
     }
 
     @Override
-    public PostDTO getPostById(Long postId) {
+    public PostDto getPostById(Long postId) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         log.info("user {user}", user);
@@ -46,7 +46,7 @@ public class PostServiceImpl implements PostService{
         PostEntity postEntity = postRepository
                 .findById(postId)
                 .orElseThrow(() -> new ResourceNotFoundException("Post not found with ID: "+postId));
-        return modelMapper.map(postEntity, PostDTO.class);
+        return modelMapper.map(postEntity, PostDto.class);
     }
 
 }

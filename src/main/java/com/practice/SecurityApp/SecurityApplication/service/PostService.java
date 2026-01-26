@@ -1,15 +1,15 @@
 package com.practice.SecurityApp.SecurityApplication.service;
 
-import com.practice.SecurityApp.SecurityApplication.dto.PostDTO;
+import com.practice.SecurityApp.SecurityApplication.dto.PostDto;
 
 import java.util.List;
 
 public interface PostService {
 
-    List<PostDTO> getAllPosts();
+    List<PostDto> getAllPosts();
 
-    PostDTO createNewPost(PostDTO inputPost);
+    PostDto createNewPost(PostDto inputPost);
 
-    PostDTO getPostById(Long postId);
+    PostDto getPostById(Long postId);
 
 }

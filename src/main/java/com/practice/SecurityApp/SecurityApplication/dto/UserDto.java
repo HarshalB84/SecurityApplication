@@ -3,7 +3,7 @@ package com.practice.SecurityApp.SecurityApplication.dto;
 import lombok.Data;
 
 @Data
-public class UserDTO {
+public class UserDto {
 
     private Long id;
     private String email;

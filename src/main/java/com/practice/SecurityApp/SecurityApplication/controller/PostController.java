@@ -1,6 +1,6 @@
 package com.practice.SecurityApp.SecurityApplication.controller;
 
-import com.practice.SecurityApp.SecurityApplication.dto.PostDTO;
+import com.practice.SecurityApp.SecurityApplication.dto.PostDto;
 import com.practice.SecurityApp.SecurityApplication.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -15,17 +15,17 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping
-    public List<PostDTO> getAllPost(){
+    public List<PostDto> getAllPost(){
         return postService.getAllPosts();
     }
 
     @GetMapping("/{postId}")
-    public PostDTO getPostById(@PathVariable Long postId){
+    public PostDto getPostById(@PathVariable Long postId){
         return postService.getPostById(postId);
     }
 
     @PostMapping
-    public PostDTO createNewPost(@RequestBody PostDTO inputPost){
+    public PostDto createNewPost(@RequestBody PostDto inputPost){
         return postService.createNewPost(inputPost);
     }
 

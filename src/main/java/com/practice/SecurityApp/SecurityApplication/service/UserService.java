@@ -1,17 +1,13 @@
 package com.practice.SecurityApp.SecurityApplication.service;
 
-import com.practice.SecurityApp.SecurityApplication.dto.LoginDTO;
-import com.practice.SecurityApp.SecurityApplication.dto.SignUpDTO;
-import com.practice.SecurityApp.SecurityApplication.dto.UserDTO;
+import com.practice.SecurityApp.SecurityApplication.dto.SignUpDto;
+import com.practice.SecurityApp.SecurityApplication.dto.UserDto;
 import com.practice.SecurityApp.SecurityApplication.entity.User;
 import com.practice.SecurityApp.SecurityApplication.exception.ResourceNotFoundException;
 import com.practice.SecurityApp.SecurityApplication.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -38,7 +34,7 @@ public class UserService implements UserDetailsService {
         return userRepository.findById(userId).orElseThrow(()->new ResourceNotFoundException("User with id "+userId+ " not found"));
     }
 
-    public UserDTO signUp(SignUpDTO signUpDTO) {
+    public UserDto signUp(SignUpDto signUpDTO) {
 
         Optional<User> user = userRepository.findByEmail(signUpDTO.getEmail());
         if(user.isPresent()){
@@ -49,7 +45,7 @@ public class UserService implements UserDetailsService {
         toBeCreatedUser.setPassword(passwordEncoder.encode(toBeCreatedUser.getPassword()));
 
         User savedUser = userRepository.save(toBeCreatedUser);
-        return modelMapper.map(savedUser, UserDTO.class);
+        return modelMapper.map(savedUser, UserDto.class);
 
     }
 }
