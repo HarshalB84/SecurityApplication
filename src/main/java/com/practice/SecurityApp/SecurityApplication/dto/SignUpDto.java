@@ -1,12 +1,16 @@
 package com.practice.SecurityApp.SecurityApplication.dto;
 
+import com.practice.SecurityApp.SecurityApplication.entity.enums.Role;
 import lombok.Data;
+
+import java.util.Set;
 
 @Data
 public class SignUpDto {
 
-    String email;
-    String password;
-    String name;
+    private String email;
+    private String password;
+    private String name;
+    private Set<Role> roles;
 
 }
