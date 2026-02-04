@@ -1,5 +1,6 @@
 package com.practice.SecurityApp.SecurityApplication.config;
 
+import com.practice.SecurityApp.SecurityApplication.entity.enums.Permission;
 import com.practice.SecurityApp.SecurityApplication.filters.JwtAuthFilter;
 import com.practice.SecurityApp.SecurityApplication.handler.OAuth2SuccessHandler;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import java.net.http.HttpRequest;
 
+import static com.practice.SecurityApp.SecurityApplication.entity.enums.Permission.*;
 import static com.practice.SecurityApp.SecurityApplication.entity.enums.Role.ADMIN;
 import static com.practice.SecurityApp.SecurityApplication.entity.enums.Role.CREATOR;
 
@@ -47,7 +49,15 @@ public class WebSecurityConfig {
                         .requestMatchers(publicRoutes).permitAll()
                         .requestMatchers(HttpMethod.GET, "/posts/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/posts/**")
-                        .hasAnyRole(ADMIN.name(), CREATOR.name())
+                            .hasAnyRole(ADMIN.name(), CREATOR.name())
+                        .requestMatchers(HttpMethod.POST, "/posts/**")
+                            .hasAnyAuthority(POST_CREATE.name())
+                        .requestMatchers(HttpMethod.GET, "/posts/**")
+                            .hasAuthority(POST_VIEW.name())
+                        .requestMatchers(HttpMethod.PUT, "/posts/**")
+                            .hasAuthority(POST_UPDATE.name())
+                        .requestMatchers(HttpMethod.DELETE, "/posts/**")
+                            .hasAuthority(POST_DELETE.name())
                         .anyRequest().authenticated())
                 .csrf(csrfConfig -> csrfConfig.disable())
                 .sessionManagement(sessionConfig -> sessionConfig
