@@ -3,6 +3,7 @@ package com.practice.SecurityApp.SecurityApplication.controller;
 import com.practice.SecurityApp.SecurityApplication.dto.PostDto;
 import com.practice.SecurityApp.SecurityApplication.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +16,7 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     public List<PostDto> getAllPost(){
         return postService.getAllPosts();
     }
