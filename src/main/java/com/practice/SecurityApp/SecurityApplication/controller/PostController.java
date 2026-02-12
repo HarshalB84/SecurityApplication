@@ -4,6 +4,7 @@ import com.practice.SecurityApp.SecurityApplication.dto.PostDto;
 import com.practice.SecurityApp.SecurityApplication.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +23,8 @@ public class PostController {
     }
 
     @GetMapping("/{postId}")
+//    @PreAuthorize("hasAnyRole('USER','ADMIN') OR hasAnyAuthority('POST_VIEW")
+    @PreAuthorize("@postSecurity.isOwnerOfPost(#postId)")
     public PostDto getPostById(@PathVariable Long postId){
         return postService.getPostById(postId);
     }
